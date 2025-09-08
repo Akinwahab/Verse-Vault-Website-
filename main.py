@@ -8,12 +8,13 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap5
+import os
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
 # --- App setup ---
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "4z3c8e7a1b0d5a9k8f62b7c9f3c9e1o5"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SECRET_KEY'] = os.environ.get('Flask_Key')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///posts.db")
 ckeditor = CKEditor(app)
 Bootstrap5(app)
 

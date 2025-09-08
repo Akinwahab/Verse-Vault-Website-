@@ -1,0 +1,77 @@
+{% block content %}
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../static/assets/img/edit-bg.jpg')" ></header>
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7 text-center">
+        <div class="page-heading">
+          {% if is_edit %}
+          <h1 class="fw-bold" style="font-size: 3rem;">Edit Post</h1>
+          {% else %}
+          <h1 class="fw-bold" style="font-size: 3rem;">New Post</h1>
+          {% endif %}
+          <span class="subheading fst-italic" style="color: #f0f0f0;">
+            You're going to make a great blog post!
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="mb-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- Blog Post Form -->
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+
+        <form method="POST">
+          {{ form.hidden_tag() }}
+
+          <div class="mb-3">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control") }}
+          </div>
+
+          <div class="mb-3">
+            {{ form.subtitle.label(class="form-label") }}
+            {{ form.subtitle(class="form-control") }}
+          </div>
+
+          <div class="mb-3">
+            {{ form.img_url.label(class="form-label") }}
+            {{ form.img_url(class="form-control") }}
+          </div>
+
+          <div class="mb-3">
+            {{ form.body.label(class="form-label") }}
+            {{ form.body(class="form-control") }}
+          </div>
+
+          {{ form.submit(class="btn btn-primary") }}
+        </form>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+{% include "footer.html" %}
+{% endblock %}

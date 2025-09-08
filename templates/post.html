@@ -1,0 +1,71 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% include "header.html" %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{ post.img_url }}'); background-size: cover; background-position: center;">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7 text-center text-white">
+        <div class="post-heading">
+          <h1 class="fw-bold" style="font-size: 3rem;">{{ post.title }}</h1>
+          <h2 class="subheading fst-italic">{{ post.subtitle }}</h2>
+          <span class="meta d-block mt-3">
+            Posted by <a href="#" class="text-decoration-none fw-semibold text-light">{{ post.author.name }}</a>
+            on {{ post.date }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article class="py-5">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+
+        <!-- Post body -->
+        <div class="post-content mb-5" style="line-height: 1.8; font-size: 1.125rem;">
+          {{ post.body|safe }}
+        </div>
+
+        <!-- Edit Post (admin only) -->
+        {% if current_user.id == 1 %}
+        <div class="d-flex justify-content-end mb-5">
+          <a class="btn btn-primary" href="{{ url_for('edit_post', post_id=post.id) }}">
+            Edit Post
+          </a>
+        </div>
+        {% endif %}
+
+        <!-- Comment Form -->
+        <div class="card shadow-sm p-4 mb-5">
+          <h5 class="mb-3 fw-semibold fst-italic">Leave a Comment</h5>
+          {{ render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments mb-5">
+          <h5 class="mb-4 fw-semibold fst-italic">Comments ({{ post.comments|length }})</h5>
+          <ul class="list-unstyled">
+            {% for comment in post.comments %}
+            <li class="d-flex mb-4 p-3 border rounded shadow-sm align-items-start">
+              <img src="{{ url_for('static', filename='assets/img/default-profile.jpg') }}" alt="Avatar"
+                   class="me-3 rounded-circle" 
+                   width="50" height="50">
+              <div class="flex-grow-1">
+                <p class="mb-1" style="line-height: 1.6;">{{ comment.text|safe }}</p>
+                <small class="text-muted fst-italic">— {{ comment.comment_author.name }}</small>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</article>
+
+{% include "footer.html" %}

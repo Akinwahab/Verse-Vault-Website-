@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 – Not Found</title>
+    <style>
+        body {
+            background: #1b1b2f;
+            color: #e0e0e0;
+            font-family: "Courier New", monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        .poem {
+            max-width: 600px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffd369;
+        }
+        a {
+            color: #00adb5;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="poem">
+        <h1>404 – Lost in the Void</h1>
+        <p>
+            You sought a page, but none was found,<br>
+            The echoes fade, no path, no sound.<br>
+            Perhaps the link was left behind,<br>
+            Or wandered off within the mind.
+        </p>
+        <p><a href="{{ url_for('home') }}">Return to Home</a></p>
+    </div>
+</body>
+</html>

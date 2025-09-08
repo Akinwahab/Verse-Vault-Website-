@@ -1,0 +1,61 @@
+{% include "header.html" %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('static/assets/img/homepage-bg.jfif')"; width:300px;  background-size: cover; background-position: center;>
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-9 col-xl-8 text-center">
+                <div class="site-heading">
+                    <h1 class="fw-bold" style="font-size: 3rem;">Luminary Echo's Verse Vault</h1>
+                    <span class="subheading fst-italic" style="font-size: 1.2rem; color: #f0f0f0;">
+                        A collection of words that whisper and inspire.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content-->
+<div class="container px-4 px-lg-5 my-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            {% for post in all_posts %}
+            <div class="post-preview mb-5 pb-3 border-bottom">
+                <a href="{{ url_for('show_post', post_id=post.id) }}" class="text-decoration-none text-dark">
+                    <h2 class="post-title fw-bold">{{ post.title }}</h2>
+                    <h3 class="post-subtitle text-muted">{{ post.subtitle }}</h3>
+                </a>
+                <p class="post-meta mt-2 text-secondary">
+                    Posted by 
+                    <span class="fw-semibold">{{ post.author.name }}</span>
+                    on {{ post.date.strftime('%B %d, %Y') }}
+                    
+                    {% if current_user.is_authenticated and current_user.id == 1 %}
+                    <a href="{{ url_for('delete_post', post_id=post.id) }}" class="ms-2 text-danger small">Delete</a>
+                    {% endif %}
+                </p>
+            </div>
+            {% endfor %}
+
+            <!-- New Post -->
+            {% if current_user.is_authenticated and current_user.id == 1 %}
+            <div class="d-flex justify-content-end mb-4">
+                <a class="btn btn-primary shadow-sm" href="{{ url_for('add_new_post') }}">
+                    + Create New Post
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4">
+                {% if has_next %}
+                <a class="btn btn-secondary float-right text-uppercase" href="{{ url_for('home', page=page+1) }}">
+                    Older Posts →
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}

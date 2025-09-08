@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Luminary Echo's Verse Vault: a place to explore poems, thoughts, and reflections. Explore verses and join the conversation in the comments" />
+    <meta name="author" content="Akinwahab" />
+    <title>About - Verse Vault</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='assets/favicon/icon32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='assets/favicon/icon16.png') }}" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        /* Navbar styles (from header.html) */
+        .navbar { background-color: #343a40; }
+        .navbar-brand, .nav-link { color: #fff; }
+        .nav-link:hover { color: #ffc107; }
+
+        /* Flip card */
+        .flip-card {
+          background-color: transparent;
+          width: 100%;
+          perspective: 1000px;
+          cursor: pointer;
+        }
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          transition: transform 0.8s;
+          transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner {
+          transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+          position: relative;
+          backface-visibility: hidden;
+          border-radius: 15px;
+        }
+        .flip-card-back { transform: rotateY(180deg); }
+
+        /* Contact hover */
+        .contact-feedback .btn:hover { transform: scale(1.2); }
+
+        /* Page header */
+        .masthead { background-size: cover; background-position: center; height: 300px; display: flex; align-items: center; justify-content: center; color: #fff; text-align: center; }
+        .masthead h1 { font-size: 2.5rem; font-weight: bold; }
+        .masthead .subheading { font-size: 1.2rem; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar from header.html -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Verse Vault</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                {% if not current_user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log Out</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link active" href="{{ url_for('about') }}">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('static/assets/img/about-bg.avif')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading text-center text-white">
+          <h1>About Me</h1>
+          <span class="subheading fst-italic">A gentle journey through musings and stories</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="mb-5">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+
+        <!-- Flipping Card for About Content -->
+        <div class="flip-card mb-5">
+          <div class="flip-card-inner">
+            <div class="flip-card-front p-4 shadow rounded bg-white">
+              <h2 class="fw-bold mb-3">Welcome to My Poetry Archive</h2>
+              <p class="fst-italic">
+                Here lies a collection of words that whisper, I do hope they inspire, and linger in thought.
+              </p>
+              <p>
+                Each poem is a glimpse into my reflections, emotions, and stories waiting to be shared.
+              </p>
+              <p>
+                Hover to see more about me.
+              </p>
+            </div>
+            <div class="flip-card-back p-4 shadow rounded bg-light">
+              <h3 class="fw-bold mb-3">Me</h3>
+              <p class="fst-italic">
+                I am Abdulwahab Habeeblahi X Luminary Echo,
+              </p>
+              <p>
+                A Python programmer with a passion for poetry, weaving logic and lyric to illuminate thoughts through words.
+              </p>
+              <p>
+                I fused my two passions into this space—a place to share content freely, guided by my own rules and vision.
+              </p>
+              <p>
+                Here, I showcase both my programming craft and poetry, hoping to inspire and invite visitors to enjoy and engage.
+              </p>
+              <p>
+                May my words spark reflection and joy, and may this website radiate a uplifting vibe to all who visit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact & Feedback Section -->
+        <section class="contact-feedback py-5 bg-light text-center rounded shadow-sm">
+          <h2 class="fw-bold mb-4">Share Your Thoughts</h2>
+          <p class="fst-italic mb-4">
+            Rate the website or send me your feedback directly via email or social links.
+          </p>
+
+          <div class="d-flex justify-content-center flex-wrap gap-4 mb-3">
+            <a href="mailto:102009aki@gmail.com?subject=Website Feedback"
+               class="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
+               style="width: 80px; height: 80px; font-size: 1.5rem; transition: transform 0.3s;"
+               title="Send me an email">
+               <i class="fas fa-envelope"></i>
+            </a>
+
+            <a href="https://github.com/Akinwahab" target="_blank"
+               class="btn btn-outline-dark rounded-circle d-flex align-items-center justify-content-center"
+               style="width: 80px; height: 80px; font-size: 1.5rem; transition: transform 0.3s;"
+               title="Check my GitHub">
+               <i class="fab fa-github"></i>
+            </a>
+
+            <a href=" " target="_blank"
+               class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center"
+               style="width: 80px; height: 80px; font-size: 1.5rem; transition: transform 0.3s;"
+               title="Connect on LinkedIn-- Id be there by October end ">
+               <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+
+          <p class="fst-italic text-muted">
+            Your thoughts inspire the next verse.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
